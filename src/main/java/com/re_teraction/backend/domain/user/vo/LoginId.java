@@ -29,13 +29,8 @@ public class LoginId {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        LoginId loginId = (LoginId) o;
+        if (this == o) return true;
+        if (!(o instanceof LoginId loginId)) return false;
         return Objects.equals(value, loginId.value);
     }
 

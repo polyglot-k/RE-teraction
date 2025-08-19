@@ -28,13 +28,8 @@ public class Password {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Password password = (Password) o;
+        if (this == o) return true;
+        if (!(o instanceof Password password)) return false;
         return Objects.equals(value, password.value);
     }
 
