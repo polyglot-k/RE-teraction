@@ -15,8 +15,6 @@ public interface UserJpaRepository extends JpaRepository<UserJpaEntity, Long> {
             return saved;
         } catch (DataIntegrityViolationException e) {
             throw mapConstraintViolation(e);
-        }catch (Exception e) {
-            throw new BusinessException(ErrorCode.USER_CREATION_FAILED);
         }
     }
 
