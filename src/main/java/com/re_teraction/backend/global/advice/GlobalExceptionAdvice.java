@@ -19,6 +19,6 @@ public class GlobalExceptionAdvice {
     private ResponseEntity<? extends ApiResponse<?>> buildErrorResponse(ErrorCode errorCode) {
         return ResponseEntity
                 .status(errorCode.getStatus())
-                .body(ApiResponseFactory.error(errorCode.getMessage()));
+                .body(ApiResponseFactory.error(errorCode));
     }
 }
