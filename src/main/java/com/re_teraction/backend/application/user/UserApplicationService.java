@@ -24,6 +24,7 @@ public class UserApplicationService {
     private final UserJpaRepository userJpaRepository;
     private final UserMapper userMapper;
 
+    @Transactional
     public UserResponse createUser(CreateUserCommand cmd) {
         UserJpaEntity user =  userJpaRepository.saveAndHandleDuplicate(toEntity(cmd));
         return UserResponse.from(user);
