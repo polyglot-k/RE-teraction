@@ -1,4 +1,4 @@
-package com.re_teraction.backend.presentation;
+package com.re_teraction.backend.presentation.user;
 
 import com.re_teraction.backend.application.user.UserApplicationService;
 import com.re_teraction.backend.application.user.dto.CreateUserCommand;
