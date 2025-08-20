@@ -32,10 +32,10 @@ public class ProjectJpaEntity {
     private Long id;
 
     @Column(name = "project_thumbnail_url", nullable = false)
-    public String thumbnailUrl;
+    private String thumbnailUrl;
 
     @Column(name = "project_title", nullable = false)
-    public String title;
+    private String title;
 
     @ElementCollection(targetClass = ProjectCategory.class)
     @CollectionTable(
