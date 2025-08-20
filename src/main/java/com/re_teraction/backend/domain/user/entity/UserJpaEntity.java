@@ -69,6 +69,7 @@ public class UserJpaEntity {
     public static UserJpaEntity of(LoginId loginId, Password password, String name,  Email email, PhoneNumber phoneNumber) {
         return new UserJpaEntity(name, loginId, password, email, phoneNumber);
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

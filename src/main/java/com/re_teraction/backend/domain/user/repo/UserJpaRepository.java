@@ -1,13 +1,16 @@
 package com.re_teraction.backend.domain.user.repo;
 
 import com.re_teraction.backend.domain.user.entity.UserJpaEntity;
+import com.re_teraction.backend.domain.user.vo.LoginId;
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;
+import java.util.Optional;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserJpaRepository extends JpaRepository<UserJpaEntity, Long> {
+    Optional<UserJpaEntity> findByLoginId(LoginId loginId);
     default UserJpaEntity saveAndHandleDuplicate(UserJpaEntity user) {
         try {
             UserJpaEntity saved = save(user);

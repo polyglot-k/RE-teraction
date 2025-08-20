@@ -37,6 +37,11 @@ public class UserApplicationService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public UserJpaEntity getUserByLoginId(String loginId) {
+        return userJpaRepository.findByLoginId(LoginId.of(loginId))
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+    }
     private UserJpaEntity toEntity(CreateUserCommand cmd) {
         LoginId loginId = userMapper.toLoginId(cmd.loginId());
         Email email = userMapper.toEmail(cmd.email());
