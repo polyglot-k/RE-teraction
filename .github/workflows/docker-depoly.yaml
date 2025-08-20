@@ -1,0 +1,44 @@
+name: Docker Build and Deploy
+
+on:
+  workflow_run:
+    workflows: [ "app-ci-build" ]
+    types:
+      - completed
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ DockerHub 로그인
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 3️⃣ Gradle 캐시 복원
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      # 4️⃣ Docker Build & Push (멀티스테이지 + 캐시)
+      - name: Build & Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: kangtaehyun1107/re_teraction:${{ github.sha }}
+          cache-from: type=registry,ref=kangtaehyun1107/re_teraction:cache
+          cache-to: type=registry,ref=kangtaehyun1107/re_teraction:cache,mode=max
