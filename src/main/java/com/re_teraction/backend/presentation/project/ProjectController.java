@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
-public class ProjectController {
+public final class ProjectController implements ProjectApiDocs {
 
     private final ProjectApplicationService projectApplicationService;
 
