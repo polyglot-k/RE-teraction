@@ -13,13 +13,13 @@ public class SecurityConfig {
     @Bean
     public PasswordEncryptor passwordEncryptor(
             @Value("${security.password.salt}") String salt,
-            @Value("${security.password.iterations}") int iterations,
-            @Value("${security.password.salt-length}") int saltLength
+            @Value("${security.password.salt-length}") int saltLength,
+            @Value("${security.password.iterations}") int iterations
     ) {
         Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder(
                 salt,
-                iterations,
                 saltLength,
+                iterations,
                 Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA512
         );
         return new Pbkdf2PasswordEncryptor(encoder);
