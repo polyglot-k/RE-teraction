@@ -5,6 +5,7 @@ import com.re_teraction.backend.application.project.dto.CreateProjectCommand;
 import com.re_teraction.backend.application.project.dto.ProjectResponse;
 import com.re_teraction.backend.global.response.ApiResponse;
 import com.re_teraction.backend.global.response.ApiResponseFactory;
+import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
 public class ProjectController {
+
     private final ProjectApplicationService projectApplicationService;
 
     @GetMapping()
@@ -32,7 +34,8 @@ public class ProjectController {
     }
 
     @GetMapping(params = "category")
-    public ResponseEntity<? extends ApiResponse<?>> getProjectsByCategory(@RequestParam String category) {
+    public ResponseEntity<? extends ApiResponse<?>> getProjectsByCategory(
+            @RequestParam String category) {
         List<ProjectResponse> responses = projectApplicationService.getProjectByCategory(category);
         return ResponseEntity
                 .ok()
@@ -40,14 +43,17 @@ public class ProjectController {
     }
 
     @PostMapping()
-    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateProjectCommand cmd){
-        ProjectResponse response = projectApplicationService.createProject(1L, cmd);
+    public ResponseEntity<? extends ApiResponse<?>> create(
+            @AuthenticatedUserId Long userId,
+            @RequestBody CreateProjectCommand cmd
+    ) {
+        ProjectResponse response = projectApplicationService.createProject(userId, cmd);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(response.id())
                 .toUri();
         return ResponseEntity
                 .created(location)
-                .body(ApiResponseFactory.success(response,  "프로젝트 생성 성공"));
+                .body(ApiResponseFactory.success(response, "프로젝트 생성 성공"));
     }
 }

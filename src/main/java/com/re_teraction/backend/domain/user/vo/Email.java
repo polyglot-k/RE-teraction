@@ -39,8 +39,12 @@ public class Email {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Email email)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Email email)) {
+            return false;
+        }
         return Objects.equals(value, email.value);
     }
 

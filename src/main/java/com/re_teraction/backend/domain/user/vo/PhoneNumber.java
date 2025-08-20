@@ -19,6 +19,7 @@ import lombok.ToString;
 @JsonSerialize(using = PhoneNumberSerializer.class)
 @ToString
 public class PhoneNumber {
+
     private static final Pattern PHONE_NUMBER_REGEX =
             Pattern.compile("^010-\\d{4}-\\d{4}$");
     @Column(name = "phone_number", nullable = false)
@@ -37,8 +38,12 @@ public class PhoneNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PhoneNumber phoneNumber)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PhoneNumber phoneNumber)) {
+            return false;
+        }
         return Objects.equals(value, phoneNumber.value);
     }
 

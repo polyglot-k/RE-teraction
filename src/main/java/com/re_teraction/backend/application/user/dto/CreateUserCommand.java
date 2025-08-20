@@ -7,4 +7,5 @@ public record CreateUserCommand(
         String email,
         String phoneNumber
 ) {
+
 }

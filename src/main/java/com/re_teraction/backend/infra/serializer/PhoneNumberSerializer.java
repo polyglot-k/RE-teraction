@@ -7,7 +7,10 @@ import com.re_teraction.backend.domain.user.vo.PhoneNumber;
 import java.io.IOException;
 
 public class PhoneNumberSerializer extends StdSerializer<PhoneNumber> {
-    public PhoneNumberSerializer() { super(PhoneNumber.class); }
+
+    public PhoneNumberSerializer() {
+        super(PhoneNumber.class);
+    }
 
     @Override
     public void serialize(PhoneNumber value, JsonGenerator gen, SerializerProvider provider)

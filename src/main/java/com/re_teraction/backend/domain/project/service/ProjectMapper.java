@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 @DomainService
 public class ProjectMapper {
+
     public Set<ProjectCategory> toProjectCategories(Set<String> categories) {
         return categories.stream()
                 .map(ProjectCategory::fromValue)

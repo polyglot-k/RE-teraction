@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ErrorResponse extends ApiResponse<Void> {
+
     private final String errorCode;
 
     private ErrorResponse(String message, String errorCode) {

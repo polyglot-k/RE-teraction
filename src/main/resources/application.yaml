@@ -16,3 +16,14 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+jwt:
+  secret-key: W2B92bmvpFbIhkHavdYaDMq3FoefTugnIiLPFWGpLTLnW3g4ESkaXjBZgmCYuC7S9ZpKuiBs+Pfdf6xyHlLqgg==
+  access-expiration: 3600000
+  refresh-expiration: 604800000
+
+security:
+  password:
+    salt: my-fixed-secret
+    iterations: 185000
+    salt-length: 16
