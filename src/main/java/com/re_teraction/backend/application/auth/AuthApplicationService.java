@@ -9,6 +9,7 @@ import com.re_teraction.backend.global.exception.ErrorCode;
 import com.re_teraction.backend.global.security.core.JwtPayload;
 import com.re_teraction.backend.global.security.core.JwtPayloadFactory;
 import com.re_teraction.backend.global.security.core.JwtTokenFactory;
+import com.re_teraction.backend.global.security.crypto.PasswordEncryptor;
 import com.re_teraction.backend.global.security.token.AccessToken;
 import com.re_teraction.backend.global.security.token.RefreshToken;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,11 @@ public class AuthApplicationService {
 
     private final UserApplicationService userApplicationService;
     private final JwtTokenFactory jwtTokenFactory;
+    private final PasswordEncryptor passwordEncryptor;
 
     public LoginResponse login(LoginCommand cmd) {
         UserJpaEntity user = userApplicationService.getUserByLoginId(cmd.loginId());
-        if (!user.getPassword().matches(cmd.password())) {
+        if (!passwordEncryptor.matches(cmd.password(), user.getPassword())) {
             throw new BusinessException(ErrorCode.INVALID_PASSWORD);
         }
 
