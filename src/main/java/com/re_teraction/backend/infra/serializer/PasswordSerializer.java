@@ -7,7 +7,10 @@ import com.re_teraction.backend.domain.user.vo.Password;
 import java.io.IOException;
 
 public class PasswordSerializer extends StdSerializer<Password> {
-    public PasswordSerializer() { super(Password.class); }
+
+    public PasswordSerializer() {
+        super(Password.class);
+    }
 
     @Override
     public void serialize(Password value, JsonGenerator gen, SerializerProvider provider)

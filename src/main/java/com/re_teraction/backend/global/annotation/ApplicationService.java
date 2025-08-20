@@ -7,8 +7,7 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Service;
 
 /**
- * Application Layer Service를 명시하는 커스텀 어노테이션
- * 내부적으로 Spring @Service를 포함
+ * Application Layer Service를 명시하는 커스텀 어노테이션 내부적으로 Spring @Service를 포함
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

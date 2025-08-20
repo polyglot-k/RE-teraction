@@ -23,15 +23,16 @@ import lombok.ToString;
 @Entity
 @Table(name = "users",
         uniqueConstraints = {
-        @UniqueConstraint(name = "uk_user_email", columnNames = "email"),
-        @UniqueConstraint(name = "uk_user_login_id", columnNames = "login_id"),
-        @UniqueConstraint(name = "uk_user_phone_number", columnNames = "phone_number")
-})
+                @UniqueConstraint(name = "uk_user_email", columnNames = "email"),
+                @UniqueConstraint(name = "uk_user_login_id", columnNames = "login_id"),
+                @UniqueConstraint(name = "uk_user_phone_number", columnNames = "phone_number")
+        })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
 public class UserJpaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
@@ -66,14 +67,20 @@ public class UserJpaEntity {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-    public static UserJpaEntity of(LoginId loginId, Password password, String name,  Email email, PhoneNumber phoneNumber) {
+
+    public static UserJpaEntity of(LoginId loginId, Password password, String name, Email email,
+            PhoneNumber phoneNumber) {
         return new UserJpaEntity(name, loginId, password, email, phoneNumber);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserJpaEntity that)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserJpaEntity that)) {
+            return false;
+        }
         return id != null && id.equals(that.id);
     }
 

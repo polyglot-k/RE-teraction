@@ -2,10 +2,10 @@ package com.re_teraction.backend.application.project;
 
 import com.re_teraction.backend.application.project.dto.CreateProjectCommand;
 import com.re_teraction.backend.application.project.dto.ProjectResponse;
-import com.re_teraction.backend.domain.project.vo.ProjectCategory;
 import com.re_teraction.backend.domain.project.entity.ProjectJpaEntity;
 import com.re_teraction.backend.domain.project.repo.ProjectJpaRepository;
 import com.re_teraction.backend.domain.project.service.ProjectMapper;
+import com.re_teraction.backend.domain.project.vo.ProjectCategory;
 import com.re_teraction.backend.global.annotation.ApplicationService;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ApplicationService
 @RequiredArgsConstructor
 public class ProjectApplicationService {
+
     private final ProjectJpaRepository projectJpaRepository;
     private final ProjectMapper projectMapper;
 
@@ -41,7 +42,7 @@ public class ProjectApplicationService {
                 .toList();
     }
 
-    private ProjectJpaEntity toEntity(Long userId, CreateProjectCommand cmd){
+    private ProjectJpaEntity toEntity(Long userId, CreateProjectCommand cmd) {
         Set<ProjectCategory> categories = projectMapper.toProjectCategories(cmd.categories());
         return ProjectJpaEntity.of(cmd.thumbnailUrl(), cmd.title(), categories, userId);
     }

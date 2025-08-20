@@ -18,7 +18,8 @@ public enum ErrorCode {
     INVALID_PROJECT_CATEGORY(HttpStatus.BAD_REQUEST, "유효하지 않은 프로젝트 카테고리입니다."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "잘못된 비밀번호입니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다."),
-    INVALID_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 페이로드입니다."),;
+    INVALID_JWT_PAYLOAD(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 페이로드입니다."),
+    ;
     private final HttpStatus status;
     private final String message;
 }

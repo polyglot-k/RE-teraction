@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class ProjectJpaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "project_id", nullable = false)
@@ -50,13 +51,16 @@ public class ProjectJpaEntity {
     private Long userId;
 
     @Builder
-    public ProjectJpaEntity(String thumbnailUrl, String title, Set<ProjectCategory> categories, Long userId) {
+    public ProjectJpaEntity(String thumbnailUrl, String title, Set<ProjectCategory> categories,
+            Long userId) {
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.categories = categories;
         this.userId = userId;
     }
-    public static ProjectJpaEntity of(String thumbnailUrl, String title, Set<ProjectCategory> categories, Long userId) {
+
+    public static ProjectJpaEntity of(String thumbnailUrl, String title,
+            Set<ProjectCategory> categories, Long userId) {
         return new ProjectJpaEntity(thumbnailUrl, title, categories, userId);
     }
 }

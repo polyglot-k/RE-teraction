@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 public class JwtPayloadFactory {
+
     public static JwtPayload fromUser(UserJpaEntity user) {
         Claims claims = Jwts.claims();
         claims.put(JwtClaims.EMAIL, user.getEmail().getValue());

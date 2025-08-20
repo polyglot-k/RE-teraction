@@ -17,22 +17,30 @@ import lombok.ToString;
 @JsonSerialize(using = PasswordSerializer.class)
 @ToString
 public class Password {
+
     @Column(name = "password", nullable = false)
     private String value;
 
     private Password(String value) {
         this.value = value;
     }
+
     public static Password of(String value) {
         return new Password(value);
     }
+
     public boolean matches(String rawPassword) {
         return PasswordEncoder.matches(rawPassword, this.value);
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Password password)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Password password)) {
+            return false;
+        }
         return Objects.equals(value, password.value);
     }
 

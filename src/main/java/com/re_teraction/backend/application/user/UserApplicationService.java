@@ -2,13 +2,13 @@ package com.re_teraction.backend.application.user;
 
 import com.re_teraction.backend.application.user.dto.CreateUserCommand;
 import com.re_teraction.backend.application.user.dto.UserResponse;
+import com.re_teraction.backend.domain.user.entity.UserJpaEntity;
+import com.re_teraction.backend.domain.user.repo.UserJpaRepository;
+import com.re_teraction.backend.domain.user.service.UserMapper;
 import com.re_teraction.backend.domain.user.vo.Email;
 import com.re_teraction.backend.domain.user.vo.LoginId;
 import com.re_teraction.backend.domain.user.vo.Password;
 import com.re_teraction.backend.domain.user.vo.PhoneNumber;
-import com.re_teraction.backend.domain.user.entity.UserJpaEntity;
-import com.re_teraction.backend.domain.user.repo.UserJpaRepository;
-import com.re_teraction.backend.domain.user.service.UserMapper;
 import com.re_teraction.backend.global.annotation.ApplicationService;
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;
@@ -21,12 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 public class UserApplicationService {
+
     private final UserJpaRepository userJpaRepository;
     private final UserMapper userMapper;
 
     @Transactional
     public UserResponse createUser(CreateUserCommand cmd) {
-        UserJpaEntity user =  userJpaRepository.saveAndHandleDuplicate(toEntity(cmd));
+        UserJpaEntity user = userJpaRepository.saveAndHandleDuplicate(toEntity(cmd));
         return UserResponse.from(user);
     }
 
@@ -42,6 +43,7 @@ public class UserApplicationService {
         return userJpaRepository.findByLoginId(LoginId.of(loginId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
+
     private UserJpaEntity toEntity(CreateUserCommand cmd) {
         LoginId loginId = userMapper.toLoginId(cmd.loginId());
         Email email = userMapper.toEmail(cmd.email());

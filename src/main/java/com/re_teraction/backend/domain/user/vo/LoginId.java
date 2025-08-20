@@ -20,17 +20,22 @@ public class LoginId {
     @Column(name = "login_id", nullable = false)
     private String value;
 
-    private LoginId(String value){
+    private LoginId(String value) {
         this.value = value;
     }
+
     public static LoginId of(String value) {
         return new LoginId(value);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LoginId loginId)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LoginId loginId)) {
+            return false;
+        }
         return Objects.equals(value, loginId.value);
     }
 

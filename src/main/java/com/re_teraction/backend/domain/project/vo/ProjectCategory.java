@@ -15,13 +15,15 @@ public enum ProjectCategory {
     INDUSTRY("Industry");
 
     private static final Map<String, ProjectCategory> BY_VALUE = new HashMap<>();
-    private final String value;
 
     static {
         for (ProjectCategory e : values()) {
             BY_VALUE.put(e.value, e);
         }
     }
+
+    private final String value;
+
     public static ProjectCategory fromValue(String value) {
         ProjectCategory category = BY_VALUE.get(value);
         if (category == null) {

@@ -7,7 +7,10 @@ import com.re_teraction.backend.domain.user.vo.LoginId;
 import java.io.IOException;
 
 public class LoginIdSerializer extends StdSerializer<LoginId> {
-    public LoginIdSerializer() { super(LoginId.class); }
+
+    public LoginIdSerializer() {
+        super(LoginId.class);
+    }
 
     @Override
     public void serialize(LoginId value, JsonGenerator gen, SerializerProvider provider)

@@ -10,7 +10,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserJpaRepository extends JpaRepository<UserJpaEntity, Long> {
+
     Optional<UserJpaEntity> findByLoginId(LoginId loginId);
+
     default UserJpaEntity saveAndHandleDuplicate(UserJpaEntity user) {
         try {
             UserJpaEntity saved = save(user);

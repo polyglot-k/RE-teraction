@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserApplicationService userApplicationService;
 
     @GetMapping("/{userId}")
@@ -29,8 +30,9 @@ public class UserController {
                 .ok()
                 .body(ApiResponseFactory.success(response, "사용자 조회 성공"));
     }
+
     @PostMapping()
-    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateUserCommand cmd){
+    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateUserCommand cmd) {
         UserResponse response = userApplicationService.createUser(cmd);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

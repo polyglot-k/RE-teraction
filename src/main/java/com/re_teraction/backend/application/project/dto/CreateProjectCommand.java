@@ -7,4 +7,5 @@ public record CreateProjectCommand(
         String title,
         Set<String> categories
 ) {
+
 }

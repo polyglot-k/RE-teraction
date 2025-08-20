@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
 public class ProjectController {
+
     private final ProjectApplicationService projectApplicationService;
 
     @GetMapping()
@@ -32,7 +33,8 @@ public class ProjectController {
     }
 
     @GetMapping(params = "category")
-    public ResponseEntity<? extends ApiResponse<?>> getProjectsByCategory(@RequestParam String category) {
+    public ResponseEntity<? extends ApiResponse<?>> getProjectsByCategory(
+            @RequestParam String category) {
         List<ProjectResponse> responses = projectApplicationService.getProjectByCategory(category);
         return ResponseEntity
                 .ok()
@@ -40,7 +42,7 @@ public class ProjectController {
     }
 
     @PostMapping()
-    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateProjectCommand cmd){
+    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateProjectCommand cmd) {
         ProjectResponse response = projectApplicationService.createProject(1L, cmd);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -48,6 +50,6 @@ public class ProjectController {
                 .toUri();
         return ResponseEntity
                 .created(location)
-                .body(ApiResponseFactory.success(response,  "프로젝트 생성 성공"));
+                .body(ApiResponseFactory.success(response, "프로젝트 생성 성공"));
     }
 }

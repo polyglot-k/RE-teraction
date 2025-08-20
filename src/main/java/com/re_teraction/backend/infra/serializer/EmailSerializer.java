@@ -7,7 +7,10 @@ import com.re_teraction.backend.domain.user.vo.Email;
 import java.io.IOException;
 
 public class EmailSerializer extends StdSerializer<Email> {
-    public EmailSerializer() { super(Email.class); }
+
+    public EmailSerializer() {
+        super(Email.class);
+    }
 
     @Override
     public void serialize(Email value, JsonGenerator gen, SerializerProvider provider)

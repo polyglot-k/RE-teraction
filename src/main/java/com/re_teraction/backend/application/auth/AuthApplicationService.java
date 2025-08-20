@@ -6,10 +6,10 @@ import com.re_teraction.backend.domain.user.entity.UserJpaEntity;
 import com.re_teraction.backend.global.annotation.ApplicationService;
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;
-import com.re_teraction.backend.global.security.token.AccessToken;
 import com.re_teraction.backend.global.security.core.JwtPayload;
 import com.re_teraction.backend.global.security.core.JwtPayloadFactory;
 import com.re_teraction.backend.global.security.core.JwtTokenFactory;
+import com.re_teraction.backend.global.security.token.AccessToken;
 import com.re_teraction.backend.global.security.token.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthApplicationService {
+
     private final UserApplicationService userApplicationService;
     private final JwtTokenFactory jwtTokenFactory;
 
-    public LoginResponse login(LoginCommand cmd){
+    public LoginResponse login(LoginCommand cmd) {
         UserJpaEntity user = userApplicationService.getUserByLoginId(cmd.loginId());
         if (!user.getPassword().matches(cmd.password())) {
             throw new BusinessException(ErrorCode.INVALID_PASSWORD);
