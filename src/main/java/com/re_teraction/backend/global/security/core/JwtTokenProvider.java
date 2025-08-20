@@ -6,12 +6,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class JwtTokenProvider {
 
@@ -20,7 +22,8 @@ public class JwtTokenProvider {
     public JwtTokenProvider(
             @Value("${jwt.secret-key}") String secretKey
     ) {
-        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        this.key = io.jsonwebtoken.security.Keys.hmacShaKeyFor(keyBytes);
     }
 
     public <T extends JwtPayload> String generateToken(T payload, long expirationTime) {
@@ -29,9 +32,9 @@ public class JwtTokenProvider {
         if (payload == null || payload.getSubject() == null) {
             throw new BusinessException(ErrorCode.INVALID_JWT_PAYLOAD);
         }
+        Claims claims = payload.getClaims();
         return Jwts.builder()
-                .setSubject(payload.getSubject())
-                .setClaims(payload.getClaims())
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS512)
