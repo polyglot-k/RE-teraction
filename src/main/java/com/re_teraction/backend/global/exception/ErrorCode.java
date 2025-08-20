@@ -22,6 +22,7 @@ public enum ErrorCode {
     EXPIRED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰입니다."),
     INVALID_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 토큰입니다."),
     INVALID_JWT_SIGNATURE(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 서명입니다."),
+    INVALID_PROGRAM(HttpStatus.BAD_REQUEST, "유효하지 않은 프로그램입니다."),
     ;
     private final HttpStatus status;
     private final String message;
