@@ -1,14 +1,14 @@
 server:
   port: 8080
-  
+
 spring:
   config:
     import: optional:file:.env[.properties]
   datasource:
-    url: ${DB_URL:jdbc:h2:mem:testdb}      # 기본값 H2
+    url: ${DB_URL:jdbc:h2:mem:testdb}
     driver-class-name: org.h2.Driver
-    username: ${DB_USERNAME:sa}           # 기본값 sa
-    password: ${DB_PASSWORD:}             # 기본값 없음
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: update
@@ -29,14 +29,3 @@ security:
     salt: ${PASSWORD_SALT:my-fixed-secret}
     iterations: ${PASSWORD_ITERATIONS:185000}
     salt-length: ${PASSWORD_SALT_LENGTH:16}
-
-jwt:
-  secret-key: W2B92bmvpFbIhkHavdYaDMq3FoefTugnIiLPFWGpLTLnW3g4ESkaXjBZgmCYuC7S9ZpKuiBs+Pfdf6xyHlLqgg==
-  access-expiration: 3600000
-  refresh-expiration: 604800000
-
-security:
-  password:
-    salt: my-fixed-secret
-    iterations: 185000
-    salt-length: 16
