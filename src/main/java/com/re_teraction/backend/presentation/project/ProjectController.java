@@ -5,6 +5,7 @@ import com.re_teraction.backend.application.project.dto.CreateProjectCommand;
 import com.re_teraction.backend.application.project.dto.ProjectResponse;
 import com.re_teraction.backend.global.response.ApiResponse;
 import com.re_teraction.backend.global.response.ApiResponseFactory;
+import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,11 @@ public class ProjectController {
     }
 
     @PostMapping()
-    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateProjectCommand cmd) {
-        ProjectResponse response = projectApplicationService.createProject(1L, cmd);
+    public ResponseEntity<? extends ApiResponse<?>> create(
+            @AuthenticatedUserId Long userId,
+            @RequestBody CreateProjectCommand cmd
+    ) {
+        ProjectResponse response = projectApplicationService.createProject(userId, cmd);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(response.id())
