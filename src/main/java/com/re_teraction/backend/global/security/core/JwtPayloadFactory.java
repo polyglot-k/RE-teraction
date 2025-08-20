@@ -11,9 +11,9 @@ public class JwtPayloadFactory {
 
     public static JwtPayload fromUser(UserJpaEntity user) {
         Claims claims = Jwts.claims();
-        claims.put(JwtClaims.SUBJECT, user.getId());
+        claims.setSubject(String.valueOf(user.getId()));
         claims.put(JwtClaims.EMAIL, user.getEmail().getValue());
-        
+
         return new DefaultJwtPayload(String.valueOf(user.getId()), claims);
     }
 }

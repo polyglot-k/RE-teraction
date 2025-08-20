@@ -1,7 +1,6 @@
 package com.re_teraction.backend.global.security.resolver;
 
 import com.re_teraction.backend.global.exception.UnauthorizedException;
-import com.re_teraction.backend.global.security.constant.JwtClaims;
 import com.re_teraction.backend.global.security.core.JwtTokenProvider;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +36,7 @@ public class AuthenticatedUserIdResolver implements HandlerMethodArgumentResolve
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String token = extractToken(request);
         Claims claims = tokenProvider.getClaimsFromToken(token);
-        Long userId = claims.get(JwtClaims.SUBJECT, Long.class);
+        Long userId = Long.valueOf(claims.getSubject());
 
         if (userId == null) {
             throw new UnauthorizedException("User ID not found in JWT token");
