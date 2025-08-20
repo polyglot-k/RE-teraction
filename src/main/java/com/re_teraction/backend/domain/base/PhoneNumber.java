@@ -1,4 +1,4 @@
-package com.re_teraction.backend.domain.user.vo;
+package com.re_teraction.backend.domain.base;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.re_teraction.backend.global.exception.BusinessException;
@@ -22,6 +22,7 @@ public class PhoneNumber {
 
     private static final Pattern PHONE_NUMBER_REGEX =
             Pattern.compile("^010-\\d{4}-\\d{4}$");
+    
     @Column(name = "phone_number", nullable = false)
     private String value;
 

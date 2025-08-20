@@ -1,4 +1,4 @@
-package com.re_teraction.backend.domain.user.vo;
+package com.re_teraction.backend.domain.base;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.re_teraction.backend.global.exception.BusinessException;

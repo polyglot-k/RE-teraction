@@ -3,7 +3,7 @@ package com.re_teraction.backend.infra.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.re_teraction.backend.domain.user.vo.PhoneNumber;
+import com.re_teraction.backend.domain.base.PhoneNumber;
 import java.io.IOException;
 
 public class PhoneNumberSerializer extends StdSerializer<PhoneNumber> {
