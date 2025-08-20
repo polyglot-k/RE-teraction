@@ -1,12 +1,14 @@
 server:
   port: 8080
-
+  
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: ${DB_URL:jdbc:h2:mem:testdb}      # 기본값 H2
     driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    username: ${DB_USERNAME:sa}           # 기본값 sa
+    password: ${DB_PASSWORD:}             # 기본값 없음
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,6 +18,17 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+
+security:
+  password:
+    salt: ${PASSWORD_SALT:my-fixed-secret}
+    iterations: ${PASSWORD_ITERATIONS:185000}
+    salt-length: ${PASSWORD_SALT_LENGTH:16}
 
 jwt:
   secret-key: W2B92bmvpFbIhkHavdYaDMq3FoefTugnIiLPFWGpLTLnW3g4ESkaXjBZgmCYuC7S9ZpKuiBs+Pfdf6xyHlLqgg==
