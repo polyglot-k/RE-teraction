@@ -2,8 +2,14 @@ package com.re_teraction.backend.presentation;
 
 import com.re_teraction.backend.application.user.UserApplicationService;
 import com.re_teraction.backend.application.user.dto.CreateUserCommand;
+import com.re_teraction.backend.application.user.dto.UserResponse;
+import com.re_teraction.backend.global.response.ApiResponse;
+import com.re_teraction.backend.global.response.ApiResponseFactory;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserApplicationService userApplicationService;
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<? extends ApiResponse<?>> getById(@PathVariable Long userId) {
+        UserResponse response = userApplicationService.getUserById(userId);
+        return ResponseEntity
+                .ok()
+                .body(ApiResponseFactory.success(response, "사용자 조회 성공"));
+    }
     @PostMapping()
-    public ResponseEntity<Long> create(@RequestBody CreateUserCommand cmd){
-        return ResponseEntity.ok(
-                userApplicationService.createUser(cmd)
-        );
+    public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateUserCommand cmd){
+        UserResponse response = userApplicationService.createUser(cmd);
+        URI location = URI.create("/api/v1/users/" + response.id());
+        return ResponseEntity
+                .created(location)
+                .body(ApiResponseFactory.success(response, "회원가입 성공"));
     }
 }
