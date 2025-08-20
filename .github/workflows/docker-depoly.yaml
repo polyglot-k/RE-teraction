@@ -5,24 +5,25 @@ on:
     workflows: [ "app-ci-build" ]
     types:
       - completed
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ 코드 체크아웃
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ DockerHub 로그인
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 3️⃣ Gradle 캐시 복원
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker-container
+
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
@@ -33,7 +34,6 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      # 4️⃣ Docker Build & Push (멀티스테이지 + 캐시)
       - name: Build & Push Docker image
         uses: docker/build-push-action@v5
         with:
