@@ -1,9 +1,9 @@
 package com.re_teraction.backend.domain.user.entity;
 
-import com.re_teraction.backend.domain.user.vo.Email;
+import com.re_teraction.backend.domain.base.Email;
+import com.re_teraction.backend.domain.base.PhoneNumber;
 import com.re_teraction.backend.domain.user.vo.LoginId;
 import com.re_teraction.backend.domain.user.vo.Password;
-import com.re_teraction.backend.domain.user.vo.PhoneNumber;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

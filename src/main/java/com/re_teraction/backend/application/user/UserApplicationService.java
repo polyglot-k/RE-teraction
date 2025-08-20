@@ -2,13 +2,13 @@ package com.re_teraction.backend.application.user;
 
 import com.re_teraction.backend.application.user.dto.CreateUserCommand;
 import com.re_teraction.backend.application.user.dto.UserResponse;
+import com.re_teraction.backend.domain.base.Email;
+import com.re_teraction.backend.domain.base.PhoneNumber;
 import com.re_teraction.backend.domain.user.entity.UserJpaEntity;
 import com.re_teraction.backend.domain.user.repo.UserJpaRepository;
 import com.re_teraction.backend.domain.user.service.UserAssembler;
-import com.re_teraction.backend.domain.user.vo.Email;
 import com.re_teraction.backend.domain.user.vo.LoginId;
 import com.re_teraction.backend.domain.user.vo.Password;
-import com.re_teraction.backend.domain.user.vo.PhoneNumber;
 import com.re_teraction.backend.global.annotation.ApplicationService;
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;

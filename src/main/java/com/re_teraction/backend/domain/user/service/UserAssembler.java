@@ -1,8 +1,8 @@
 package com.re_teraction.backend.domain.user.service;
 
-import com.re_teraction.backend.domain.user.vo.Email;
+import com.re_teraction.backend.domain.base.Email;
+import com.re_teraction.backend.domain.base.PhoneNumber;
 import com.re_teraction.backend.domain.user.vo.LoginId;
-import com.re_teraction.backend.domain.user.vo.PhoneNumber;
 import com.re_teraction.backend.global.annotation.DomainService;
 import lombok.RequiredArgsConstructor;
 
