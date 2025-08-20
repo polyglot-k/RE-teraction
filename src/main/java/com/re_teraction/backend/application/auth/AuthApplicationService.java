@@ -32,7 +32,6 @@ public class AuthApplicationService {
 
         AccessToken accessToken = jwtTokenFactory.createAccessToken(jwtPayload);
         RefreshToken refreshToken = jwtTokenFactory.createRefreshToken(jwtPayload);
-
         return LoginResponse.of(accessToken, refreshToken);
     }
 }
