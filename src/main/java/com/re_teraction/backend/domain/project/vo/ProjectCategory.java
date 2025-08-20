@@ -30,7 +30,6 @@ public enum ProjectCategory {
         return category;
     }
 
-
     @Override
     public String toString() {
         return this.value;
