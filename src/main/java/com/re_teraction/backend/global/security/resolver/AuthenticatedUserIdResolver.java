@@ -1,5 +1,6 @@
 package com.re_teraction.backend.global.security.resolver;
 
+import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.UnauthorizedException;
 import com.re_teraction.backend.global.security.core.JwtTokenProvider;
 import io.jsonwebtoken.Claims;
@@ -35,14 +36,18 @@ public class AuthenticatedUserIdResolver implements HandlerMethodArgumentResolve
 
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String token = extractToken(request);
-        Claims claims = tokenProvider.getClaimsFromToken(token);
-        Long userId = Long.valueOf(claims.getSubject());
+        try {
+            Claims claims = tokenProvider.getClaimsFromToken(token);
+            Long userId = Long.valueOf(claims.getSubject());
 
-        if (userId == null) {
-            throw new UnauthorizedException("User ID not found in JWT token");
+            if (userId == null) {
+                throw new UnauthorizedException("User ID not found in JWT token");
+            }
+            
+            return userId;
+        } catch (BusinessException e) {
+            throw new UnauthorizedException(e.getMessage());
         }
-
-        return userId;
     }
 
     private String extractToken(HttpServletRequest request) {
@@ -50,10 +55,6 @@ public class AuthenticatedUserIdResolver implements HandlerMethodArgumentResolve
         if (header == null || !header.startsWith(BEARER_PREFIX)) {
             throw new UnauthorizedException("Authorization header missing or invalid");
         }
-        String token = header.substring(BEARER_TOKEN_PREFIX_LENGTH);
-        if (!tokenProvider.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or expired JWT token");
-        }
-        return token;
+        return header.substring(BEARER_TOKEN_PREFIX_LENGTH);
     }
 }
