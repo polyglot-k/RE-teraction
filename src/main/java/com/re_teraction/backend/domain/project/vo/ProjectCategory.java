@@ -2,7 +2,8 @@ package com.re_teraction.backend.domain.project.vo;
 
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -13,14 +14,22 @@ public enum ProjectCategory {
     SCHOLASTIC("Scholastic"),
     INDUSTRY("Industry");
 
+    private static final Map<String, ProjectCategory> BY_VALUE = new HashMap<>();
     private final String value;
 
-    public static ProjectCategory fromValue(String value) {
-        return Arrays.stream(ProjectCategory.values())
-                .filter(category -> category.value.equals(value))
-                .findFirst()
-                .orElseThrow(() -> new BusinessException(ErrorCode.INVALID_PROJECT_CATEGORY));
+    static {
+        for (ProjectCategory e : values()) {
+            BY_VALUE.put(e.value, e);
+        }
     }
+    public static ProjectCategory fromValue(String value) {
+        ProjectCategory category = BY_VALUE.get(value);
+        if (category == null) {
+            throw new BusinessException(ErrorCode.INVALID_PROJECT_CATEGORY);
+        }
+        return category;
+    }
+
 
     @Override
     public String toString() {
