@@ -1,5 +1,7 @@
-package com.re_teraction.backend.domain.enrollment;
+package com.re_teraction.backend.domain.enrollment.entity;
 
+import com.re_teraction.backend.domain.enrollment.vo.Applicant;
+import com.re_teraction.backend.domain.enrollment.vo.Program;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,4 +1,4 @@
-package com.re_teraction.backend.domain.enrollment;
+package com.re_teraction.backend.domain.enrollment.vo;
 
 import com.re_teraction.backend.global.exception.BusinessException;
 import com.re_teraction.backend.global.exception.ErrorCode;

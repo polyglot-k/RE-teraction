@@ -1,4 +1,4 @@
-package com.re_teraction.backend.domain.enrollment;
+package com.re_teraction.backend.domain.enrollment.vo;
 
 import com.re_teraction.backend.domain.base.Email;
 import com.re_teraction.backend.domain.base.PhoneNumber;

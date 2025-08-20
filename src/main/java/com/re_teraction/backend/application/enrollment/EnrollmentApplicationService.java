@@ -4,10 +4,10 @@ import com.re_teraction.backend.application.enrollment.dto.CreateEnrollmentComma
 import com.re_teraction.backend.application.enrollment.dto.EnrollmentResponse;
 import com.re_teraction.backend.domain.base.Email;
 import com.re_teraction.backend.domain.base.PhoneNumber;
-import com.re_teraction.backend.domain.enrollment.Applicant;
-import com.re_teraction.backend.domain.enrollment.EnrollmentJpaEntity;
-import com.re_teraction.backend.domain.enrollment.EnrollmentJpaRepository;
-import com.re_teraction.backend.domain.enrollment.Program;
+import com.re_teraction.backend.domain.enrollment.entity.EnrollmentJpaEntity;
+import com.re_teraction.backend.domain.enrollment.repository.EnrollmentJpaRepository;
+import com.re_teraction.backend.domain.enrollment.vo.Applicant;
+import com.re_teraction.backend.domain.enrollment.vo.Program;
 import com.re_teraction.backend.global.annotation.ApplicationService;
 import lombok.RequiredArgsConstructor;
 

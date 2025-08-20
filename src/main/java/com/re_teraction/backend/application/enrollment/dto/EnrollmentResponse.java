@@ -1,6 +1,6 @@
 package com.re_teraction.backend.application.enrollment.dto;
 
-import com.re_teraction.backend.domain.enrollment.EnrollmentJpaEntity;
+import com.re_teraction.backend.domain.enrollment.entity.EnrollmentJpaEntity;
 
 public record EnrollmentResponse(
         Long id,
