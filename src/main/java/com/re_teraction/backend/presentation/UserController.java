@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -31,7 +32,10 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<? extends ApiResponse<?>> create(@RequestBody CreateUserCommand cmd){
         UserResponse response = userApplicationService.createUser(cmd);
-        URI location = URI.create("/api/v1/users/" + response.id());
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
         return ResponseEntity
                 .created(location)
                 .body(ApiResponseFactory.success(response, "회원가입 성공"));
