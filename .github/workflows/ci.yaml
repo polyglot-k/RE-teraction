@@ -19,5 +19,8 @@ jobs:
         run: |
           echo "${{ secrets.APP_ENV }}" > .env
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
-        run: sudo ./gradlew build --no-daemon
+        run: ./gradlew build --no-daemon
