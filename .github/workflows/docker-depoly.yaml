@@ -60,5 +60,5 @@ jobs:
           script: |
             echo "${{ secrets.APP_ENV }}" > .env
             chmod +x /home/ubuntu/app/deploy.sh
-            /home/ubuntu/app/deploy.sh ${{ github.sha }}
+            sudo /home/ubuntu/app/deploy.sh ${{ github.sha }}
 
