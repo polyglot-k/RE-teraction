@@ -32,6 +32,10 @@ public sealed interface ProjectApiDocs permits ProjectController {
     @Operation(summary = "프로젝트 생성", description = "사용자가 프로젝트를 생성하는 API")
     ResponseEntity<? extends ApiResponse<?>> create(
             @Parameter(hidden = true) Long userId,
-            @RequestBody CreateProjectCommand cmd
+            @RequestBody(
+                    description = "프로젝트 생성에 필요한 정보",
+                    required = true
+            )
+            CreateProjectCommand cmd
     );
 }

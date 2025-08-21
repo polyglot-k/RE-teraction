@@ -23,7 +23,10 @@ public sealed interface UserApiDocs permits UserController {
 
     @Operation(summary = "사용자 생성", description = "새로운 사용자를 생성하는 API")
     ResponseEntity<? extends ApiResponse<?>> create(
-            @RequestBody
+            @RequestBody(
+                    description = "사용자 생성에 필요한 정보",
+                    required = true
+            )
             CreateUserCommand cmd
     );
 }
