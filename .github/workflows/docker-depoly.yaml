@@ -42,3 +42,22 @@ jobs:
           tags: kangtaehyun1107/re_teraction:${{ github.sha }}
           cache-from: type=registry,ref=kangtaehyun1107/re_teraction:cache
           cache-to: type=registry,ref=kangtaehyun1107/re_teraction:cache,mode=max
+      - name: Copy deploy.sh to EC2
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "./deploy.sh"
+          target: "/home/ubuntu/app/deploy.sh"
+
+      - name: Run deploy.sh on EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            chmod +x /home/ubuntu/app/deploy.sh
+            /home/ubuntu/app/deploy.sh
+
