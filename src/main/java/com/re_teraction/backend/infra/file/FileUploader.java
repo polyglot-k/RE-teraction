@@ -4,5 +4,5 @@ import java.net.URI;
 
 public interface FileUploader<T> {
 
-    URI upload(T source);
+    URI upload(String prefix, T target);
 }
