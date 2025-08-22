@@ -11,4 +11,10 @@ import java.lang.annotation.Target;
 @Documented
 public @interface AuthenticatedUserId {
 
+    AccessType accessOnly() default AccessType.USER;
+
+    enum AccessType {
+        USER,
+        ADMIN
+    }
 }
