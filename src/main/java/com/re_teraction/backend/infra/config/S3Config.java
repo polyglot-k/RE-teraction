@@ -1,5 +1,6 @@
 package com.re_teraction.backend.infra.config;
 
+import com.re_teraction.backend.infra.s3.S3Service;
 import com.re_teraction.backend.infra.s3.S3ServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,7 @@ public class S3Config {
     }
 
     @Bean
-    public S3ServiceImpl s3Service(S3Client s3Client) {
+    public S3Service s3Service(S3Client s3Client) {
         return new S3ServiceImpl(s3Client, bucketName);
     }
 }
