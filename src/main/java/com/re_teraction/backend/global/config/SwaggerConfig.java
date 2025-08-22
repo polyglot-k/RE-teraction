@@ -15,7 +15,7 @@ public class SwaggerConfig {
 
     private static final String SECURITY_SCHEME_NAME = "BearerAuth";
     private final List<Server> servers = List.of(
-            new Server().url("http://localhost:8080").description("로컬 개발 서버")
+            new Server().url("http://localhost:8080/be").description("로컬 개발 서버")
     );
 
     @Bean
