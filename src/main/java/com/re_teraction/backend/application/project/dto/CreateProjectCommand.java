@@ -5,8 +5,8 @@ import java.util.Set;
 
 public record CreateProjectCommand(
 
-        @Schema(description = "프로젝트 썸네일 이미지 URL", example = "https://example.com/image.png")
-        String thumbnailUrl,
+        @Schema(description = "프로젝트 썸네일 이미지 Id", example = "1")
+        Long thumbnailId,
 
         @Schema(description = "프로젝트 제목", example = "RE-teraction")
         String title,
