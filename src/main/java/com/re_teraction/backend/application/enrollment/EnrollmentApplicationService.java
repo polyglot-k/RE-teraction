@@ -9,6 +9,7 @@ import com.re_teraction.backend.domain.enrollment.repository.EnrollmentJpaReposi
 import com.re_teraction.backend.domain.enrollment.vo.Applicant;
 import com.re_teraction.backend.domain.enrollment.vo.Program;
 import com.re_teraction.backend.global.annotation.ApplicationService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @ApplicationService
@@ -33,5 +34,12 @@ public class EnrollmentApplicationService {
                 .applicant(applicant)
                 .program(Program.fromValue(cmd.program()))
                 .build();
+    }
+
+    public List<EnrollmentResponse> getAllEnrollments() {
+        return enrollmentJpaRepository.findAll()
+                .stream()
+                .map(EnrollmentResponse::from)
+                .toList();
     }
 }
