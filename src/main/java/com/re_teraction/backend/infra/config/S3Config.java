@@ -1,11 +1,10 @@
 package com.re_teraction.backend.infra.config;
 
-import com.re_teraction.backend.infra.file.FileUploader;
-import com.re_teraction.backend.infra.file.S3FileUploader;
+import com.re_teraction.backend.infra.s3.S3Service;
+import com.re_teraction.backend.infra.s3.S3ServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -25,7 +24,8 @@ public class S3Config {
     }
 
     @Bean
-    public FileUploader<MultipartFile> S3FileUploader(S3Client s3Client) {
-        return new S3FileUploader(s3Client, bucketName);
+    public S3Service s3Service(S3Client s3Client) {
+        return new S3ServiceImpl(s3Client, bucketName);
     }
 }
+

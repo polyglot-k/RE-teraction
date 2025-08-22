@@ -1,47 +1,28 @@
 package com.re_teraction.backend.infra.file;
 
-import com.re_teraction.backend.infra.file.exception.S3UploadException;
-import java.io.IOException;
+import com.re_teraction.backend.infra.s3.S3Service;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
-import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+@Component
 @RequiredArgsConstructor
 public class S3FileUploader implements FileUploader<MultipartFile> {
 
     private static final DateTimeFormatter PATH_DATE_FORMATTER = DateTimeFormatter.ofPattern(
-            "yyyy/MM/dd");
-    private final S3Client s3Client;
-    private final String bucketName;
+            "yyyy/MM");
+    private final S3Service s3Service;
 
     @Override
-    public URI upload(MultipartFile file) {
+    public URI upload(String prefix, MultipartFile file) {
         validateFile(file);
 
-        String key = generateS3Key(file);
-
-        try {
-            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(key)
-                    .contentType(file.getContentType())
-                    .build();
-
-            s3Client.putObject(putObjectRequest,
-                    RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
-
-        } catch (IOException e) {
-            throw new S3UploadException("S3 업로드에 실패했습니다: " + key, e);
-        }
-
-        return buildPublicURI(key);
+        String key = generateS3Key(prefix, file);
+        return s3Service.create(key, file);
     }
 
     private void validateFile(MultipartFile file) {
@@ -50,12 +31,12 @@ public class S3FileUploader implements FileUploader<MultipartFile> {
         }
     }
 
-    private String generateS3Key(MultipartFile file) {
+    private String generateS3Key(String prefix, MultipartFile file) {
         String datePath = LocalDate.now().format(PATH_DATE_FORMATTER);
         String extension = getFileExtension(file);
         String uuid = UUID.randomUUID().toString();
 
-        return String.format("%s/%s%s", datePath, uuid, extension);
+        return String.format("%s/%s%s%s", datePath, prefix, uuid, extension);
     }
 
     private String getFileExtension(MultipartFile file) {
@@ -64,14 +45,5 @@ public class S3FileUploader implements FileUploader<MultipartFile> {
             return "";
         }
         return originalFilename.substring(originalFilename.lastIndexOf('.'));
-    }
-
-    private URI buildPublicURI(String key) {
-        return UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host(bucketName + ".s3.amazonaws.com")
-                .path(key)
-                .build()
-                .toUri();
     }
 }

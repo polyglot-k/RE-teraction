@@ -7,9 +7,9 @@ import com.re_teraction.backend.global.response.ApiResponse;
 import com.re_teraction.backend.global.response.ApiResponseFactory;
 import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId;
 import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId.AccessType;
-import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/projects")
@@ -50,14 +49,11 @@ public final class ProjectController implements ProjectApiDocs {
             @AuthenticatedUserId Long userId,
             @RequestBody CreateProjectCommand cmd
     ) {
-        ProjectResponse response = projectApplicationService.createProject(userId, cmd);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(response.id())
-                .toUri();
+        projectApplicationService.createProject(userId, cmd);
+        
         return ResponseEntity
-                .created(location)
-                .body(ApiResponseFactory.success(response, "프로젝트 생성 성공"));
+                .status(HttpStatus.CREATED)
+                .body(ApiResponseFactory.success("프로젝트 생성 성공"));
     }
 
     @DeleteMapping("/{projectId}")

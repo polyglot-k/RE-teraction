@@ -2,14 +2,14 @@ package com.re_teraction.backend.presentation.paper;
 
 import com.re_teraction.backend.application.paper.PaperApplicationService;
 import com.re_teraction.backend.application.paper.dto.CreatePaperCommand;
-import com.re_teraction.backend.application.paper.dto.PaperResponse;
+import com.re_teraction.backend.application.paper.dto.PaperWithThumbnailResponse;
 import com.re_teraction.backend.global.response.ApiResponse;
 import com.re_teraction.backend.global.response.ApiResponseFactory;
 import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId;
 import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId.AccessType;
-import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/papers")
@@ -29,7 +28,7 @@ public final class PaperController implements PaperApiDocs {
 
     @GetMapping()
     public ResponseEntity<? extends ApiResponse<?>> getAllPapers() {
-        List<PaperResponse> responses = paperApplicationService.getPapers();
+        List<PaperWithThumbnailResponse> responses = paperApplicationService.getPapers();
         return ResponseEntity
                 .ok()
                 .body(ApiResponseFactory.success(responses, "논문 조회 성공"));
@@ -40,14 +39,10 @@ public final class PaperController implements PaperApiDocs {
             @AuthenticatedUserId Long userId,
             @RequestBody CreatePaperCommand cmd
     ) {
-        PaperResponse response = paperApplicationService.createPaper(userId, cmd);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(response.id())
-                .toUri();
+        paperApplicationService.createPaper(userId, cmd);
         return ResponseEntity
-                .created(location)
-                .body(ApiResponseFactory.success(response, "논문 등록 성공"));
+                .status(HttpStatus.CREATED)
+                .body(ApiResponseFactory.success("논문 등록 성공"));
     }
 
     @DeleteMapping("/{paperId}")
