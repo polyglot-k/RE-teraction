@@ -2,6 +2,7 @@ server:
   port: 8080
   servlet:
     context-path: /be
+
 spring:
   config:
     import: optional:file:.env[.properties]
@@ -34,7 +35,7 @@ springdoc:
     operations-sorter: alpha
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: ${JWT_SECRET_KEY:W2B92bmvpFbIhkHavdYaDMq3FoefTugnIiLPFWGpLTLnW3g4ESkaXjBZgmCYuC7S9ZpKuiBs+Pfdf6xyHlLqgg==}
   access-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
   refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
 
@@ -43,3 +44,8 @@ security:
     salt: ${PASSWORD_SALT:my-fixed-secret}
     iterations: ${PASSWORD_ITERATIONS:185000}
     salt-length: ${PASSWORD_SALT_LENGTH:16}
+
+cloud:
+  aws:
+    s3:
+      bucket-name: ${AWS_S3_BUCKET_NAME}
