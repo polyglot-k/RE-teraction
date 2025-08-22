@@ -23,6 +23,7 @@ public enum ErrorCode {
     INVALID_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 토큰입니다."),
     INVALID_JWT_SIGNATURE(HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 서명입니다."),
     INVALID_PROGRAM(HttpStatus.BAD_REQUEST, "유효하지 않은 프로그램입니다."),
+    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다."),
     ;
     private final HttpStatus status;
     private final String message;
