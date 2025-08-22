@@ -9,6 +9,9 @@ public final class URIPathUtils {
     public static URIPath extract(URI uri) {
         String path = uri.getPath().replaceFirst("^/", "");
         int lastSlash = path.lastIndexOf('/');
+        if (lastSlash == -1) {
+            return new URIPath("", path);
+        }
         return new URIPath(
                 path.substring(0, lastSlash),
                 path.substring(lastSlash + 1)
