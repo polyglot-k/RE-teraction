@@ -38,4 +38,11 @@ public sealed interface ProjectApiDocs permits ProjectController {
             )
             CreateProjectCommand cmd
     );
+
+    @Operation(summary = "프로젝트 삭제", description = "관리자가 특정 프로젝트를 삭제하는 API")
+    ResponseEntity<? extends ApiResponse<?>> delete(
+            @Parameter(hidden = true) Long userId,
+            @Parameter(name = "projection 식별 Id")
+            Long projectId
+    );
 }

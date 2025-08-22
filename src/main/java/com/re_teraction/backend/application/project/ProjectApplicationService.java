@@ -46,4 +46,8 @@ public class ProjectApplicationService {
         Set<ProjectCategory> categories = projectMapper.toProjectCategories(cmd.categories());
         return ProjectJpaEntity.of(cmd.thumbnailUrl(), cmd.title(), categories, userId);
     }
+
+    public void deleteProject(Long projectId) {
+        projectJpaRepository.deleteById(projectId);
+    }
 }
