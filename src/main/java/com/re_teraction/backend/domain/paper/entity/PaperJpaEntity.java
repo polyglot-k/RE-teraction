@@ -1,4 +1,4 @@
-package com.re_teraction.backend.domain.paper;
+package com.re_teraction.backend.domain.paper.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,25 +24,25 @@ public class PaperJpaEntity {
     @Column(name = "paper_id", nullable = false)
     private Long id;
 
-    @Column(name = "paper_thumbnail_url", nullable = false)
-    private String thumbnailUrl;
-
     @Column(name = "paper_title", nullable = false)
     private String title;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "thumbnail_id", nullable = false)
+    private Long thumbnailId;
+
     @Builder
-    public PaperJpaEntity(String thumbnailUrl, String title, Long userId) {
-        this.thumbnailUrl = thumbnailUrl;
+    public PaperJpaEntity(Long thumbnailId, String title, Long userId) {
+        this.thumbnailId = thumbnailId;
         this.title = title;
         this.userId = userId;
     }
 
-    public static PaperJpaEntity of(String thumbnailUrl, String title, Long userId) {
+    public static PaperJpaEntity of(Long thumbnailId, String title, Long userId) {
         return PaperJpaEntity.builder()
-                .thumbnailUrl(thumbnailUrl)
+                .thumbnailId(thumbnailId)
                 .title(title)
                 .userId(userId)
                 .build();
