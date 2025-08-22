@@ -1,22 +1,24 @@
 package com.re_teraction.backend.application.project.dto;
 
-import com.re_teraction.backend.domain.project.entity.ProjectJpaEntity;
 import com.re_teraction.backend.domain.project.vo.ProjectCategory;
+import com.re_teraction.backend.infra.persistence.dto.ProjectWithThumbnail;
 import java.util.Set;
 
 public record ProjectResponse(
         Long id,
-        String thumbnailUrl,
         String title,
+        String thumbnailUrl,
+        String author,
         Set<ProjectCategory> categories
 ) {
 
-    public static ProjectResponse from(ProjectJpaEntity project) {
+    public static ProjectResponse from(ProjectWithThumbnail project) {
         return new ProjectResponse(
-                project.getId(),
-                project.getThumbnailUrl(),
-                project.getTitle(),
-                project.getCategories()
+                project.id,
+                project.title,
+                project.thumbnailUrl,
+                project.author,
+                project.categories
         );
     }
 }
