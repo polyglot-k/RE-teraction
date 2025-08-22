@@ -21,4 +21,10 @@ public sealed interface PaperApiDocs permits PaperController {
             )
             CreatePaperCommand cmd
     );
+
+    @Operation(summary = "논문 삭제", description = "관리자가 특정 논문을 삭제하는 API")
+    ResponseEntity<? extends ApiResponse<?>> delete(
+            @Parameter(hidden = true) Long userId,
+            @Parameter(name = "논문 등록 Id") Long paperId
+    );
 }

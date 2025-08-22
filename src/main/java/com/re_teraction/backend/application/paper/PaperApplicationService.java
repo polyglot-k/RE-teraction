@@ -33,4 +33,8 @@ public class PaperApplicationService {
     private PaperJpaEntity toEntity(Long userId, CreatePaperCommand command) {
         return PaperJpaEntity.of(command.thumbnailUrl(), command.title(), userId);
     }
+
+    public void deletePaper(Long paperId) {
+        paperJpaRepository.deleteById(paperId);
+    }
 }

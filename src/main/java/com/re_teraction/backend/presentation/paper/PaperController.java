@@ -6,11 +6,14 @@ import com.re_teraction.backend.application.paper.dto.PaperResponse;
 import com.re_teraction.backend.global.response.ApiResponse;
 import com.re_teraction.backend.global.response.ApiResponseFactory;
 import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId;
+import com.re_teraction.backend.global.security.resolver.AuthenticatedUserId.AccessType;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +48,16 @@ public final class PaperController implements PaperApiDocs {
         return ResponseEntity
                 .created(location)
                 .body(ApiResponseFactory.success(response, "논문 등록 성공"));
+    }
+
+    @DeleteMapping("/{paperId}")
+    public ResponseEntity<? extends ApiResponse<?>> delete(
+            @AuthenticatedUserId(accessOnly = AccessType.ADMIN) Long userId,
+            @PathVariable Long paperId
+    ) {
+        paperApplicationService.deletePaper(paperId);
+        return ResponseEntity
+                .ok()
+                .body(ApiResponseFactory.success("프로젝트 삭제 성공"));
     }
 }
