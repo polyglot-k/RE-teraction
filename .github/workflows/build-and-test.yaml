@@ -1,4 +1,4 @@
-name: app-ci-build
+name: pr build and test
 
 on:
   pull_request:
