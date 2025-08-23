@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class PaperJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "paper_id", nullable = false)
     private Long id;
 

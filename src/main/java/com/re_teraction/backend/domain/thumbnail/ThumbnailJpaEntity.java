@@ -1,5 +1,6 @@
 package com.re_teraction.backend.domain.thumbnail;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,11 +19,14 @@ import lombok.NoArgsConstructor;
 public class ThumbnailJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "thumbnail_id", nullable = false)
     private Long id;
 
+    @Column(name = "directory", nullable = false)
     private String directory;
 
+    @Column(name = "filename", nullable = false)
     private String filename;
 
     @Builder
