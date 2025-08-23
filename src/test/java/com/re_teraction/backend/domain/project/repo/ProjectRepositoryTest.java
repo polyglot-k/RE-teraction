@@ -21,7 +21,7 @@ class ProjectRepositoryTest {
     private static final int EXPECTED_ACADEMIA_COUNT = 2;
     private static final int EXPECTED_SCHOLASTIC_COUNT = 1;
     private static final int EXPECTED_INDUSTRY_COUNT = 0;
-    
+
     @Autowired
     private ProjectJpaRepository projectJpaRepository;
 
@@ -29,7 +29,7 @@ class ProjectRepositoryTest {
     @DisplayName("모든 프로젝트 조회 시 썸네일이 있는 프로젝트 수 검증")
     void givenProjectsWithThumbnails_whenFindAllWithThumbnail_thenReturnCorrectCount() {
         // When
-        List<?> projects = projectJpaRepository.findAllWithThumbnail();
+        List<ProjectWithThumbnail> projects = projectJpaRepository.findAllWithThumbnail();
 
         // Then
         assertThat(projects)
@@ -66,10 +66,17 @@ class ProjectRepositoryTest {
             }
 
             if (!projects.isEmpty()) {
-                int categoryCount = projects.get(0).categories().size();
-                assertThat(categoryCount)
-                        .as(category + " 프로젝트 첫 번째 항목 카테고리 수")
-                        .isEqualTo(2);
+                switch (category) {
+                    case ACADEMIA -> {
+                        java.util.Map<Long, Integer> categoryCounts = projects.stream()
+                                .collect(java.util.stream.Collectors.toMap(ProjectWithThumbnail::id,
+                                        p -> p.categories().size()));
+                        assertThat(categoryCounts).hasSize(2);
+                        assertThat(categoryCounts).containsEntry(1L, 2);
+                        assertThat(categoryCounts).containsEntry(2L, 1);
+                    }
+                    case SCHOLASTIC -> assertThat(projects.get(0).categories()).hasSize(2);
+                }
             }
         }
     }
