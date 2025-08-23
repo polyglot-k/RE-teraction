@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class ProjectJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id", nullable = false)
     private Long id;
 
