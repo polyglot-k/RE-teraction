@@ -1,4 +1,4 @@
-package com.re_teraction.backend.infra.file.exception;
+package com.re_teraction.backend.infra.s3.exception;
 
 public class S3UploadException extends RuntimeException {
 

@@ -1,6 +1,7 @@
 package com.re_teraction.backend.infra.s3;
 
-import com.re_teraction.backend.infra.file.exception.S3UploadException;
+import com.re_teraction.backend.infra.s3.exception.S3DeleteException;
+import com.re_teraction.backend.infra.s3.exception.S3UploadException;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
@@ -36,7 +37,7 @@ public class S3ServiceImpl implements S3Service {
                     .build();
             s3Client.deleteObject(deleteRequest);
             return true;
-        } catch (Exception e) {
+        } catch (S3DeleteException e) {
             log.error("Failed to delete S3 file: {}", key, e);
             return false;
         }
