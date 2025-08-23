@@ -28,7 +28,6 @@ dependencies {
     // Spring Boot basic starters
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.testng:testng:7.1.0'
 
     // Database
     runtimeOnly 'com.h2database:h2'

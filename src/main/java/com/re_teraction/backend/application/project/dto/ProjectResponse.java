@@ -14,11 +14,11 @@ public record ProjectResponse(
 
     public static ProjectResponse from(ProjectWithThumbnail project) {
         return new ProjectResponse(
-                project.id,
-                project.title,
-                project.thumbnailUrl,
-                project.author,
-                project.categories
+                project.id(),
+                project.title(),
+                project.thumbnailUrl(),
+                project.author(),
+                project.categories()
         );
     }
 }
