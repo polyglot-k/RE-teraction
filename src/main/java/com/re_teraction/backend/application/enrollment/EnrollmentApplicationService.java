@@ -5,7 +5,7 @@ import com.re_teraction.backend.application.enrollment.dto.EnrollmentResponse;
 import com.re_teraction.backend.domain.base.Email;
 import com.re_teraction.backend.domain.base.PhoneNumber;
 import com.re_teraction.backend.domain.enrollment.entity.EnrollmentJpaEntity;
-import com.re_teraction.backend.domain.enrollment.repository.EnrollmentJpaRepository;
+import com.re_teraction.backend.domain.enrollment.repo.EnrollmentJpaRepository;
 import com.re_teraction.backend.domain.enrollment.vo.Applicant;
 import com.re_teraction.backend.domain.enrollment.vo.Program;
 import com.re_teraction.backend.global.annotation.ApplicationService;
