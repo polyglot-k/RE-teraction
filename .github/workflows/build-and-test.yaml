@@ -69,3 +69,13 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build --no-daemon -x test
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v2
+        with:
+          languages: java
+      - uses: github/codeql-action/analyze@v2
