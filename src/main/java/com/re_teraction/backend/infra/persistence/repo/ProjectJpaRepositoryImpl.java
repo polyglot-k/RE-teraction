@@ -1,6 +1,9 @@
-package com.re_teraction.backend.infra.persistence;
+package com.re_teraction.backend.infra.persistence.repo;
 
 import com.querydsl.core.group.GroupBy;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.re_teraction.backend.domain.project.entity.QProjectCategoryJpaEntity;
@@ -23,7 +26,7 @@ public class ProjectJpaRepositoryImpl implements ProjectJpaRepositoryCustom {
     private static final QThumbnailJpaEntity thumbnail = QThumbnailJpaEntity.thumbnailJpaEntity;
     private static final QUserJpaEntity user = QUserJpaEntity.userJpaEntity;
     private static final QProjectCategoryJpaEntity category = QProjectCategoryJpaEntity.projectCategoryJpaEntity;
-
+    private static final String CONCAT_WS_TEMPLATE = "CONCAT_WS('/', {0}, {1})";
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -63,14 +66,15 @@ public class ProjectJpaRepositoryImpl implements ProjectJpaRepositoryCustom {
                         new QProjectWithThumbnail(
                                 project.id,
                                 project.title,
-                                thumbnail.directory
-                                        .concat("/")
-                                        .concat(thumbnail.filename)
-                                        .coalesce(""),
+                                concatWs(thumbnail.directory, thumbnail.filename),
                                 user.name,
                                 GroupBy.set(category.category)
                         )
                 )
         );
+    }
+
+    private StringTemplate concatWs(StringPath directory, StringPath filename) {
+        return Expressions.stringTemplate(CONCAT_WS_TEMPLATE, directory, filename);
     }
 }
